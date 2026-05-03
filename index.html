@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRM מנהלת העסקים - רמת השרון 2026</title>
-    <!-- ייבוא ספריות חיצוניות: Tailwind לעיצוב ו-Lucide לאייקונים -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,28 +11,18 @@
         body { font-family: 'Assistant', sans-serif; background-color: #f1f5f9; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; backdrop-filter: blur(4px); }
         .modal.active { display: flex; align-items: center; justify-content: center; }
-        
-        /* סגנונות לשדות קלט */
         .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: #475569; margin-bottom: 0.3rem; text-align: right; }
         .input-group input, .input-group select, .input-group textarea { 
-            width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.75rem; outline: none; transition: all 0.2s; background: #fff; text-align: right;
+            width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; outline: none; transition: all 0.2s; background: #fff; text-align: right;
         }
         .input-group input:focus { border-color: #2563eb; ring: 3px; ring-color: #dbeafe; }
-        
-        /* ניווט וטאבים */
         .tab-active { border-bottom: 3px solid #2563eb; color: #2563eb !important; opacity: 1 !important; }
-        
-        /* הקפאת עמודת שם העסק בגלילה רוחבית */
         .sticky-col { position: sticky; right: 0; background: white; z-index: 10; box-shadow: -2px 0 5px rgba(0,0,0,0.05); }
         tr:hover .sticky-col { background: #f8fafc; }
         th.sticky-col { background: #f8fafc; z-index: 20; }
-        
-        /* עיצוב פס גלילה */
-        .custom-scrollbar::-webkit-scrollbar { height: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        
-        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 1rem 2rem; border-radius: 3rem; display: none; z-index: 200; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #0f172a; color: white; padding: 1rem 2rem; border-radius: 3rem; display: none; z-index: 200; }
     </style>
 </head>
 <body>
@@ -41,46 +30,42 @@
 <div id="toast" class="toast font-bold text-center">פעולה בוצעה בהצלחה!</div>
 
 <div class="min-h-screen text-right">
-    <!-- Header המערכת -->
-    <header class="bg-white border-b border-slate-200 px-4 py-6 md:px-8">
+    <header class="bg-white border-b border-slate-200 px-4 py-6 md:px-8 text-right">
         <div class="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-4 text-right">
+            <div class="flex items-center gap-4">
                 <div class="bg-blue-600 p-3 rounded-2xl text-white shadow-lg"><i data-lucide="layout-dashboard" class="w-8 h-8"></i></div>
                 <div>
                     <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">מנהלת העסקים רמת השרון</h1>
-                    <p class="text-slate-500 font-medium text-right">גרסת PoC סופית 2026 | ניהול קהילה וחדשנות</p>
+                    <p class="text-slate-500 font-medium">ניהול קשרי עסקים ופניות שטח | PoC 2026</p>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-3 justify-center">
-                <button onclick="copyFullCode()" class="bg-slate-800 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-700 transition-all shadow-md"><i data-lucide="copy" class="w-4 h-4 text-right"></i> העתקת קוד מקור</button>
-                <button onclick="exportToCSV()" class="bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-700 transition-all shadow-md"><i data-lucide="download" class="w-4 h-4 text-right"></i> ייצוא CSV</button>
-                <button onclick="openNewBusiness()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition-all shadow-lg"><i data-lucide="plus-circle" class="w-5 h-5 text-right"></i> הוספת עסק</button>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="exportToCSV()" class="bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-md hover:bg-emerald-700 transition-all"><i data-lucide="download" class="w-4 h-4"></i> ייצוא נתונים</button>
+                <button onclick="openNewBusiness()" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:bg-blue-700 transition-all"><i data-lucide="plus-circle" class="w-5 h-5"></i> הוספת עסק</button>
             </div>
         </div>
     </header>
 
-    <!-- תפריט ניווט ראשי -->
     <div class="bg-white border-b border-slate-200 sticky top-0 z-40">
-        <nav class="max-w-[1600px] mx-auto flex gap-8 px-8">
-            <button id="tab-directory" onclick="toggleTab('directory')" class="py-4 font-bold flex items-center gap-2 tab-active transition-all"><i data-lucide="users" class="w-5 h-5"></i> מאגר עסקים</button>
-            <button id="tab-settings" onclick="toggleTab('settings')" class="py-4 font-bold flex items-center gap-2 text-slate-400 hover:text-slate-600 transition-all"><i data-lucide="settings" class="w-5 h-5"></i> הגדרות ופרמטרים</button>
+        <nav class="max-w-[1600px] mx-auto flex gap-8 px-8 font-bold">
+            <button id="tab-directory" onclick="toggleTab('directory')" class="py-4 flex items-center gap-2 tab-active transition-all"><i data-lucide="users" class="w-5 h-5"></i> מאגר עסקים</button>
+            <button id="tab-settings" onclick="toggleTab('settings')" class="py-4 flex items-center gap-2 text-slate-400 hover:text-slate-600 transition-all"><i data-lucide="settings" class="w-5 h-5"></i> הגדרות ופרמטרים</button>
         </nav>
     </div>
 
     <main class="max-w-[1600px] mx-auto p-4 md:p-8">
-        <!-- Directory View -->
         <section id="view-directory" class="space-y-6">
             <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4">
                 <div class="relative flex-grow">
-                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-400 w-5 h-5 text-right"></i>
-                    <input type="text" id="searchInput" oninput="renderTable()" placeholder="חיפוש לפי שם עסק או בעלים..." class="w-full pr-12 pl-4 py-3 rounded-xl bg-slate-50 border-transparent focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none transition-all text-right">
+                    <i data-lucide="search" class="absolute right-4 top-3.5 text-slate-400 w-5 h-5"></i>
+                    <input type="text" id="searchInput" oninput="renderTable()" placeholder="חיפוש לפי שם, בעלים או איש קשר..." class="w-full pr-12 pl-4 py-3 rounded-xl bg-slate-50 border-transparent focus:bg-white outline-none transition-all text-right">
                 </div>
-                <select id="neighborhoodFilter" onchange="renderTable()" class="px-6 py-3 rounded-xl bg-slate-50 border-transparent font-bold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500 transition-all text-right">
+                <select id="neighborhoodFilter" onchange="renderTable()" class="px-6 py-3 rounded-xl bg-slate-50 border-transparent font-bold text-slate-700 outline-none transition-all text-right">
                     <option value="הכל">כל השכונות</option>
                 </select>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden text-right">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
                 <div class="overflow-x-auto custom-scrollbar">
                     <table class="w-full text-right border-collapse min-w-[1600px]">
                         <thead>
@@ -89,294 +74,248 @@
                                 <th class="px-6 py-4 text-right">בעלים/איש קשר</th>
                                 <th class="px-6 py-4 text-right">מיקום</th>
                                 <th class="px-6 py-4 text-center">סוג מבנה</th>
-                                <th id="dynamic-headers-area" class="contents"></th>
+                                <th class="px-6 py-4 text-center">מגזר</th>
+                                <th class="px-6 py-4 text-center">וותק</th>
+                                <th class="px-6 py-4 text-right">מועדונים/הטבות</th>
+                                <th id="dynamic-headers-area" class="contents text-center"></th>
                                 <th class="px-6 py-4 text-center">פעולות</th>
                             </tr>
                         </thead>
                         <tbody id="business-tbody" class="divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
-                <div id="empty-state" class="hidden p-20 text-center text-slate-400">
-                    <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 opacity-10"></i>
-                    <p class="text-xl font-bold text-right mr-4">לא נמצאו עסקים תואמים</p>
-                </div>
             </div>
         </section>
 
-        <!-- Settings View -->
         <section id="view-settings" class="hidden max-w-6xl mx-auto space-y-8 animate-in slide-in-from-bottom duration-300">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-right">
                 <div class="bg-white p-6 rounded-3xl shadow-xl border border-slate-200">
-                    <h2 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2 justify-end"><i data-lucide="map-pinned" class="text-blue-600"></i> ניהול שכונות</h2>
+                    <h2 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2 justify-end"><i data-lucide="map-pinned" class="text-blue-600"></i> ניהול רשימת שכונות</h2>
                     <div class="flex gap-2 mb-4">
-                        <input type="text" id="newNeighborhoodName" placeholder="שם שכונה..." class="flex-grow p-2 bg-slate-50 border rounded-xl outline-none text-sm text-right">
-                        <button onclick="addToList('neighborhoods', 'newNeighborhoodName')" class="bg-blue-600 text-white px-3 py-1 rounded-xl font-bold text-xs">הוספה</button>
+                        <input type="text" id="newNeighborhoodName" placeholder="שכונה חדשה..." class="flex-grow p-2 bg-slate-50 border rounded-xl outline-none text-sm text-right">
+                        <button onclick="addToList('neighborhoods', 'newNeighborhoodName')" class="bg-blue-600 text-white px-3 py-1 rounded-xl font-bold">הוספה</button>
                     </div>
-                    <div id="list-neighborhoods" class="space-y-1 pr-2 max-h-[300px] overflow-y-auto custom-scrollbar"></div>
+                    <div id="list-neighborhoods" class="space-y-1 max-h-[250px] overflow-y-auto"></div>
                 </div>
-
-                <div class="bg-white p-6 rounded-3xl shadow-xl border border-slate-200 text-right">
+                <div class="bg-white p-6 rounded-3xl shadow-xl border border-slate-200">
                     <h2 class="text-lg font-black text-slate-900 mb-4 flex items-center gap-2 justify-end"><i data-lucide="star" class="text-yellow-500"></i> פרמטרים מותאמים</h2>
                     <div class="flex gap-2 mb-4">
                         <input type="text" id="newFieldName" placeholder="שם שדה חדש..." class="flex-grow p-2 bg-slate-50 border rounded-xl outline-none text-sm text-right">
-                        <button onclick="addDynamicField()" class="bg-blue-900 text-white px-3 py-1 rounded-xl font-bold text-xs">הוספה</button>
+                        <button onclick="addDynamicField()" class="bg-blue-900 text-white px-3 py-1 rounded-xl font-bold">הוספה</button>
                     </div>
-                    <div id="dynamic-fields-list" class="space-y-1 pr-2 max-h-[300px] overflow-y-auto custom-scrollbar"></div>
+                    <div id="dynamic-fields-list" class="space-y-1"></div>
                 </div>
             </div>
         </section>
     </main>
 </div>
 
-<!-- Edit Modal -->
+<!-- Modal -->
 <div id="editModal" class="modal px-4">
     <div class="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-6xl max-h-[92vh] overflow-hidden flex flex-col">
-        <div class="p-8 bg-blue-900 text-white flex justify-between items-center text-right">
+        <div class="p-6 bg-blue-900 text-white flex justify-between items-center text-right">
             <div class="flex items-center gap-4">
                 <i data-lucide="edit-3" class="w-6 h-6"></i>
                 <div>
-                    <h2 id="modalTitle" class="text-2xl font-black">עריכת כרטיס עסק</h2>
-                    <p class="text-blue-200 text-sm font-medium">עדכון נתוני אמת במאגר המנהלת</p>
+                    <h2 id="modalTitle" class="text-xl font-black">עריכת כרטיס עסק</h2>
+                    <p class="text-blue-200 text-xs font-medium">כולל ניהול פניות והתקשרויות</p>
                 </div>
             </div>
-            <button onclick="closeModal()" class="bg-white/10 p-2 rounded-full transition-colors hover:bg-white/20"><i data-lucide="x" class="w-8 h-8"></i></button>
+            <button onclick="closeModal()" class="bg-white/10 p-2 rounded-full hover:bg-white/20"><i data-lucide="x" class="w-6 h-6"></i></button>
         </div>
         
-        <div id="editFormBody" class="p-8 overflow-y-auto bg-slate-50/50 text-right"></div>
+        <div id="editFormBody" class="p-6 overflow-y-auto bg-slate-50/50 text-right"></div>
 
-        <div class="p-8 border-t bg-white flex gap-4 justify-end shadow-inner">
-            <button onclick="closeModal()" class="px-10 py-3 font-bold text-slate-500 hover:text-slate-800 transition-colors">ביטול</button>
-            <button onclick="saveBusiness()" class="bg-blue-600 text-white px-16 py-4 rounded-2xl font-black flex items-center gap-3 shadow-xl hover:bg-blue-700 transition-all transform hover:scale-105 active:scale-95">
-                <i data-lucide="save" class="w-6 h-6"></i> שמירת נתונים
+        <div class="p-6 border-t bg-white flex gap-4 justify-end">
+            <button onclick="closeModal()" class="px-10 py-3 font-bold text-slate-500">ביטול</button>
+            <button onclick="saveBusiness()" class="bg-blue-600 text-white px-16 py-3 rounded-xl font-black shadow-xl hover:bg-blue-700 transition-all transform hover:scale-105">
+                <i data-lucide="save" class="w-5 h-5 inline ml-1"></i> שמירת נתונים
             </button>
         </div>
     </div>
 </div>
 
 <script>
-    // --- Configuration & Data ---
     let config = {
-        neighborhoods: ["סוקולוב", "אוסישקין", "מורשה", "הדר", "אלון", "גולן", "נווה גן"],
-        buildingTypes: ["חנות רחוב", "מרכז מסחרי", "משתלה", "אחר"]
+        neighborhoods: ["סוקולוב (לב העיר)", "אוסישקין", "מורשה", "הדר", "נווה מגן", "אלון", "קריית יערים", "גולן", "נווה רום", "נווה גן"],
+        buildingTypes: ["חנות רחוב", "מרכז מסחרי", "משתלה", "עגלת קפה", "מרתף", "אחר"],
+        sectors: ["מזון ומשקאות", "מסחר קמעונאי", "שירותים מקצועיים", "שירותים אישיים", "פנאי ותרבות"],
+        seniorityLevels: ["חדש (0-5 שנים)", "בינוני (5-30 שנה)", "ותיק (30+ שנה)"]
     };
 
     let businesses = [
         {
-            id: 1, name: "קפה בוטיק השרון", owner: "דנה כהן", phone: "052-1234567",
-            address: "סוקולוב 45", neighborhood: "סוקולוב", buildingType: "חנות רחוב",
-            customValues: { priority: "גבוהה" }
+            id: 1, name: "קפה בוטיק השרון", owner: "דנה כהן", contactPerson: "איתי", phone: "052-1234567",
+            email: "cafe@rh.co.il", sector: "מזון ומשקאות", buildingType: "חנות רחוב", seniority: "חדש (0-5 שנים)",
+            address: "סוקולוב 45", neighborhood: "סוקולוב (לב העיר)", constructionImpact: true,
+            clubs: "רמת השרון שלנו", benefit: "10% הנחה", customValues: { priority: "גבוהה" },
+            timeline: [{ date: "15/04/2026", text: "שיחה עם הבעלים לגבי עבודות סוקולוב. חוששת מירידה בפדיון." }]
         }
     ];
 
     let dynamicFields = [{ id: 'priority', label: 'חשיבות עירונית' }];
     let currentEditingId = null;
 
-    // --- Core Logic ---
+    const streetMap = { "סוקולוב": "סוקולוב (לב העיר)", "אוסישקין": "אוסישקין", "ביאליק": "מורשה", "השרף": "אלון", "טרומפלדור": "אלון", "הדר": "הדר" };
+
     function toggleTab(tab) {
         ['directory', 'settings'].forEach(v => {
-            const viewEl = document.getElementById('view-' + v);
+            const view = document.getElementById('view-' + v);
             const tabEl = document.getElementById('tab-' + v);
-            if (viewEl) viewEl.classList.add('hidden');
-            if (tabEl) {
-                tabEl.classList.remove('tab-active', 'text-blue-600');
-                tabEl.classList.add('text-slate-400');
-            }
+            if(view) view.classList.add('hidden');
+            if(tabEl) { tabEl.classList.remove('tab-active', 'text-blue-600'); tabEl.classList.add('text-slate-400'); }
         });
-        
-        const activeView = document.getElementById('view-' + tab);
-        const activeTab = document.getElementById('tab-' + tab);
-        if (activeView) activeView.classList.remove('hidden');
-        if (activeTab) {
-            activeTab.classList.add('tab-active', 'text-blue-600');
-            activeTab.classList.remove('text-slate-400');
-        }
-        
-        if (tab === 'directory') renderTable();
-        if (tab === 'settings') renderSettings();
+        document.getElementById('view-' + tab).classList.remove('hidden');
+        document.getElementById('tab-' + tab).classList.add('tab-active', 'text-blue-600');
+        if(tab==='directory') renderTable();
+        if(tab==='settings') renderSettings();
         lucide.createIcons();
     }
 
     function renderTable() {
         const tbody = document.getElementById('business-tbody');
-        if (!tbody) return;
-        
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const neighborhood = document.getElementById('neighborhoodFilter').value;
         
-        // Update Filters UI
         const filterSelect = document.getElementById('neighborhoodFilter');
-        const currentVal = filterSelect.value;
-        filterSelect.innerHTML = '<option value="הכל">כל השכונות</option>' + 
-            config.neighborhoods.map(n => `<option value="${n}" ${n === currentVal ? 'selected' : ''}>${n}</option>`).join('');
+        filterSelect.innerHTML = '<option value="הכל">סינון לפי שכונה (הכל)</option>' + 
+            config.neighborhoods.map(n => `<option ${neighborhood===n?'selected':''}>${n}</option>`).join('');
 
-        // Dynamic Header
-        const dynamicHeadersArea = document.getElementById('dynamic-headers-area');
-        dynamicHeadersArea.innerHTML = dynamicFields.map(f => `<th class="px-6 py-4 bg-blue-50/50 text-blue-900 text-center">${f.label}</th>`).join('');
+        const dynamicHeaders = document.getElementById('dynamic-headers-area');
+        dynamicHeaders.innerHTML = dynamicFields.map(f => `<th class="px-6 py-4 bg-blue-50/50 text-blue-900 text-center">${f.label}</th>`).join('');
 
-        tbody.innerHTML = '';
-        const filtered = businesses.filter(b => {
-            const nameMatch = b.name.toLowerCase().includes(searchTerm);
-            const ownerMatch = b.owner && b.owner.toLowerCase().includes(searchTerm);
-            const matchesSearch = nameMatch || ownerMatch;
-            const matchesGeo = neighborhood === "הכל" || b.neighborhood === neighborhood;
-            return matchesSearch && matchesGeo;
-        });
-
-        const emptyState = document.getElementById('empty-state');
-        if (filtered.length === 0) emptyState.classList.remove('hidden');
-        else emptyState.classList.add('hidden');
-
-        filtered.forEach(b => {
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-blue-50/30 transition-colors group";
-            tr.innerHTML = `
+        tbody.innerHTML = businesses.filter(b => {
+            const matchSearch = b.name.toLowerCase().includes(searchTerm) || (b.owner && b.owner.toLowerCase().includes(searchTerm));
+            const matchGeo = neighborhood === "הכל" || b.neighborhood === neighborhood;
+            return matchSearch && matchGeo;
+        }).map(b => `
+            <tr class="hover:bg-blue-50/30 transition-colors">
                 <td class="px-6 py-5 sticky-col text-right">
-                    <div class="font-black text-slate-900 text-base">${b.name}</div>
+                    <div class="font-black text-slate-900">${b.name}</div>
+                    ${b.constructionImpact ? '<span class="text-[9px] bg-orange-100 text-orange-700 px-2 rounded border border-orange-200">עבודות סוקולוב</span>' : ''}
                 </td>
-                <td class="px-6 py-5 text-right"><div class="font-bold text-slate-700">${b.owner || '-'}</div><div class="text-[11px] text-slate-400">${b.phone || '-'}</div></td>
-                <td class="px-6 py-5 text-right text-xs"><div class="font-bold"><i data-lucide="map-pin" class="w-3 h-3 inline text-red-500"></i> ${b.address}</div><div class="text-slate-400 font-black">${b.neighborhood}</div></td>
+                <td class="px-6 py-5 text-right"><div class="font-bold">${b.owner || '-'}</div><div class="text-[11px] text-slate-400">${b.phone || '-'}</div></td>
+                <td class="px-6 py-5 text-right text-xs"><b>${b.address}</b><br>${b.neighborhood}</td>
                 <td class="px-6 py-5 text-center"><span class="px-2 py-1 bg-slate-100 rounded-lg text-[10px] font-bold">${b.buildingType || 'חנות'}</span></td>
+                <td class="px-6 py-5 text-center"><span class="px-2 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold">${b.sector || 'כללי'}</span></td>
+                <td class="px-6 py-5 text-center text-xs font-bold text-slate-500">${b.seniority || '-'}</td>
+                <td class="px-6 py-5 text-right text-[10px] text-slate-500 max-w-[150px] truncate">${b.clubs || '-'} <br><i class="text-blue-400 italic">${b.benefit || ''}</i></td>
                 ${dynamicFields.map(f => `<td class="px-6 py-5 text-center font-bold text-blue-600">${(b.customValues && b.customValues[f.id]) || "-"}</td>`).join('')}
                 <td class="px-6 py-5 text-center"><button onclick="openEdit(${b.id})" class="p-2 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-600 hover:text-white transition-all"><i data-lucide="edit-2" class="w-4 h-4"></i></button></td>
-            `;
-            tbody.appendChild(tr);
-        });
+            </tr>`).join('');
         lucide.createIcons();
     }
 
     function openEdit(id) {
         currentEditingId = id;
-        const b = businesses.find(x => x.id === id) || { 
-            id: Date.now(), name: "", owner: "", phone: "", address: "", 
-            neighborhood: config.neighborhoods[0], buildingType: config.buildingTypes[0], 
-            customValues: {}
-        };
-        
-        document.getElementById('modalTitle').innerText = b.name ? `עריכת עסק: ${b.name}` : "הוספת עסק חדש";
-        
+        const b = businesses.find(x => x.id === id) || { id: Date.now(), name: "", owner: "", phone: "", address: "", neighborhood: config.neighborhoods[0], constructionImpact: false, customValues: {}, timeline: [] };
         const formHtml = `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                    <h3 class="text-blue-700 font-black text-xs border-b pb-3 flex items-center gap-2 justify-end">פרטים בסיסיים <i data-lucide="info" class="w-4 h-4"></i></h3>
-                    <div class="input-group"><label>שם העסק</label><input id="edit-name" type="text" value="${b.name}"></div>
-                    <div class="input-group"><label>בעלים</label><input id="edit-owner" type="text" value="${b.owner || ''}"></div>
-                    <div class="input-group"><label>טלפון</label><input id="edit-phone" type="text" value="${b.phone || ''}" dir="ltr"></div>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                    <h3 class="text-blue-700 font-black text-xs border-b pb-3 flex items-center gap-2 justify-end">מיקום ושטח <i data-lucide="map-pin" class="w-4 h-4"></i></h3>
-                    <div class="input-group"><label>כתובת</label><input id="edit-address" type="text" value="${b.address || ''}"></div>
-                    <div class="input-group"><label>שכונה</label><select id="edit-neighborhood">${config.neighborhoods.map(n=>`<option ${b.neighborhood===n?'selected':''}>${n}</option>`).join('')}</select></div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-2xl border space-y-4 shadow-sm">
+                    <h3 class="text-blue-700 font-black text-xs border-b pb-2">פרטי עסק בסיסיים</h3>
+                    <div class="input-group"><label>שם העסק</label><input id="edit-name" value="${b.name}"></div>
+                    <div class="input-group"><label>מגזר</label><select id="edit-sector">${config.sectors.map(s=>`<option ${b.sector===s?'selected':''}>${s}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>וותק</label><select id="edit-seniority">${config.seniorityLevels.map(v=>`<option ${b.seniority===v?'selected':''}>${v}</option>`).join('')}</select></div>
                     <div class="input-group"><label>סוג מבנה</label><select id="edit-buildingType">${config.buildingTypes.map(t=>`<option ${b.buildingType===t?'selected':''}>${t}</option>`).join('')}</select></div>
                 </div>
-                <div class="md:col-span-2 bg-blue-50/50 p-6 rounded-3xl border border-blue-100 space-y-4 text-right">
-                    <h3 class="text-blue-900 font-black text-xs border-b border-blue-200 pb-3 flex items-center gap-2 justify-end">פרמטרים מותאמים <i data-lucide="star" class="w-4 h-4"></i></h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        ${dynamicFields.map(f => `<div class="input-group"><label>${f.label}</label><input id="dynamic-${f.id}" type="text" value="${(b.customValues && b.customValues[f.id]) || ''}"></div>`).join('')}
+                <div class="bg-white p-5 rounded-2xl border space-y-4 shadow-sm">
+                    <h3 class="text-blue-700 font-black text-xs border-b pb-2">קשר ומיקום</h3>
+                    <div class="input-group"><label>כתובת</label><input id="edit-address" value="${b.address}" oninput="handleAddrInput(this.value)"></div>
+                    <div class="input-group"><label>שכונה</label><select id="edit-neighborhood">${config.neighborhoods.map(n=>`<option ${b.neighborhood===n?'selected':''}>${n}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>בעלים</label><input id="edit-owner" value="${b.owner || ''}"></div>
+                    <div class="input-group"><label>טלפון</label><input id="edit-phone" value="${b.phone || ''}" dir="ltr"></div>
+                    <label class="flex items-center gap-2 p-2 bg-orange-50 rounded border text-[10px] font-bold text-orange-900 cursor-pointer">
+                        <input type="checkbox" id="edit-impact" ${b.constructionImpact?'checked':''} class="w-4 h-4"> באזור עבודות תשתית
+                    </label>
+                </div>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100 space-y-4 shadow-sm">
+                    <h3 class="text-blue-900 font-black text-xs border-b border-blue-200 pb-2">יומן פניות והתקשרויות</h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="new-timeline-note" placeholder="הערה חדשה..." class="flex-grow p-2 border rounded-lg text-sm outline-none">
+                        <button onclick="addTimelineNote()" class="bg-blue-900 text-white px-3 rounded-lg text-xs font-bold">הוספה</button>
+                    </div>
+                    <div id="timeline-list" class="space-y-2 max-h-[180px] overflow-y-auto pr-2">
+                        ${(b.timeline || []).map(t => `<div class="bg-white p-2 rounded border border-blue-100 text-[11px] shadow-sm text-right"><b>${t.date}:</b> ${t.text}</div>`).reverse().join('')}
                     </div>
                 </div>
-            </div>
-        `;
+                <div class="lg:col-span-2 grid grid-cols-2 gap-4 bg-slate-100/50 p-5 rounded-2xl border text-right">
+                   ${dynamicFields.map(f => `<div class="input-group"><label>${f.label}</label><input id="dynamic-${f.id}" value="${(b.customValues && b.customValues[f.id]) || ''}"></div>`).join('')}
+                </div>
+            </div>`;
         document.getElementById('editFormBody').innerHTML = formHtml;
         document.getElementById('editModal').classList.add('active');
         lucide.createIcons();
     }
 
+    function handleAddrInput(v) { 
+        for (const s in streetMap) { 
+            if (v.includes(s)) { 
+                document.getElementById('edit-neighborhood').value = streetMap[s]; 
+                document.getElementById('edit-neighborhood').classList.add('ring-2', 'ring-green-400');
+                break; 
+            } else {
+                document.getElementById('edit-neighborhood').classList.remove('ring-2', 'ring-green-400');
+            }
+        } 
+    }
+
+    function addTimelineNote() {
+        const text = document.getElementById('new-timeline-note').value;
+        if(!text) return;
+        const note = { date: new Date().toLocaleDateString('he-IL'), text };
+        const b = businesses.find(x => x.id === currentEditingId);
+        if(!b.timeline) b.timeline = [];
+        b.timeline.push(note);
+        document.getElementById('new-timeline-note').value = '';
+        openEdit(currentEditingId);
+    }
+
     function saveBusiness() {
         let b = businesses.find(x => x.id === currentEditingId);
-        if(!b) { 
-            b = { id: currentEditingId, customValues: {} }; 
-            businesses.push(b); 
-        }
-        
+        if(!b) { b = { id: currentEditingId, customValues: {}, timeline: [] }; businesses.push(b); }
         b.name = document.getElementById('edit-name').value;
-        b.owner = document.getElementById('edit-owner').value;
-        b.phone = document.getElementById('edit-phone').value;
+        b.sector = document.getElementById('edit-sector').value;
+        b.seniority = document.getElementById('edit-seniority').value;
+        b.buildingType = document.getElementById('edit-buildingType').value;
         b.address = document.getElementById('edit-address').value;
         b.neighborhood = document.getElementById('edit-neighborhood').value;
-        b.buildingType = document.getElementById('edit-buildingType').value;
-        
-        dynamicFields.forEach(f => {
-            if(!b.customValues) b.customValues = {};
-            b.customValues[f.id] = document.getElementById(`dynamic-${f.id}`).value; 
-        });
-
+        b.owner = document.getElementById('edit-owner').value;
+        b.phone = document.getElementById('edit-phone').value;
+        b.constructionImpact = document.getElementById('edit-impact').checked;
+        if(!b.customValues) b.customValues = {};
+        dynamicFields.forEach(f => { b.customValues[f.id] = document.getElementById('dynamic-' + f.id).value; });
         closeModal(); renderTable(); showToast("הנתונים נשמרו בהצלחה!");
     }
 
     function renderSettings() {
-        const neighborhoodsList = document.getElementById('list-neighborhoods');
-        neighborhoodsList.innerHTML = config.neighborhoods.map((n, idx) => `
+        document.getElementById('list-neighborhoods').innerHTML = config.neighborhoods.map((n, idx) => `
             <div class="flex justify-between items-center p-2 bg-slate-50 rounded-lg border text-xs font-bold">
                 <span>${n}</span>
-                <button onclick="removeFromList('neighborhoods', ${idx})" class="text-red-400 hover:text-red-600 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-            </div>
-        `).join('');
-
-        const dynamicFieldsList = document.getElementById('dynamic-fields-list');
-        dynamicFieldsList.innerHTML = dynamicFields.map(f => `
+                <button onclick="removeFromList('neighborhoods', ${idx})" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </div>`).join('');
+        document.getElementById('dynamic-fields-list').innerHTML = dynamicFields.map(f => `
             <div class="flex justify-between items-center p-2 bg-slate-50 rounded-lg border text-xs font-bold">
                 <span>${f.label}</span>
-                <button onclick="removeDynamicField('${f.id}')" class="text-red-400 hover:text-red-600 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-            </div>
-        `).join('');
+                <button onclick="removeDynamicField('${f.id}')" class="text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+            </div>`).join('');
         lucide.createIcons();
     }
 
-    function addToList(key, inputId) {
-        const val = document.getElementById(inputId).value.trim();
-        if(!val) return;
-        config[key].push(val);
-        document.getElementById(inputId).value = '';
-        renderSettings(); showToast("הרשימה עודכנה!");
-    }
-
-    function removeFromList(key, idx) { 
-        config[key].splice(idx, 1); 
-        renderSettings(); 
-    }
-
-    function addDynamicField() {
-        const label = document.getElementById('newFieldName').value.trim();
-        if (!label) return;
-        const id = label.toLowerCase().replace(/\s+/g, '_');
-        dynamicFields.push({ id, label });
-        document.getElementById('newFieldName').value = '';
-        renderSettings(); showToast("פרמטר חדש נוסף!");
-    }
-
-    function removeDynamicField(id) { 
-        dynamicFields = dynamicFields.filter(f => f.id !== id); 
-        renderSettings(); 
-    }
-
-    // --- Utilities ---
+    function addToList(key, inputId) { const val = document.getElementById(inputId).value.trim(); if(val) config[key].push(val); document.getElementById(inputId).value=''; renderSettings(); }
+    function removeFromList(key, idx) { config[key].splice(idx, 1); renderSettings(); }
+    function addDynamicField() { const val = document.getElementById('newFieldName').value.trim(); if(val) dynamicFields.push({ id: val.toLowerCase().replace(/\s+/g, '_'), label: val }); document.getElementById('newFieldName').value=''; renderSettings(); }
+    function removeDynamicField(id) { dynamicFields = dynamicFields.filter(f => f.id !== id); renderSettings(); }
     function closeModal() { document.getElementById('editModal').classList.remove('active'); }
     function openNewBusiness() { openEdit(Date.now()); }
     function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(()=>t.style.display='none', 3000); }
     
-    function copyFullCode() { 
-        const html = document.documentElement.outerHTML; 
-        const a = document.createElement("textarea"); 
-        a.value = html; 
-        document.body.appendChild(a); 
-        a.select(); 
-        document.execCommand("copy"); 
-        document.body.removeChild(a); 
-        showToast("הקוד הועתק בהצלחה!"); 
+    function exportToCSV() { 
+        let csv = "\uFEFFשם עסק,בעלים,טלפון,כתובת,שכונה,סוג מבנה,מגזר,וותק\n"; 
+        businesses.forEach(b => csv += `"${b.name}","${b.owner}","${b.phone}","${b.address}","${b.neighborhood}","${b.buildingType}","${b.sector}","${b.seniority}"\n`); 
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); 
+        const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.setAttribute("download", "Minalet_CRM_2026.csv"); link.click(); 
     }
-
-    function exportToCSV() {
-        let csv = "\uFEFFשם עסק,בעלים,טלפון,כתובת,שכונה,סוג מבנה\n";
-        businesses.forEach(b => { 
-            csv += `"${b.name}","${b.owner || ''}","${b.phone || ''}","${b.address || ''}","${b.neighborhood || ''}","${b.buildingType || ''}"\n`; 
-        });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute("download", "RS_CRM_Export_2026.csv");
-        link.click();
-    }
-
+    
     window.onload = () => { renderTable(); lucide.createIcons(); };
 </script>
 </body>
